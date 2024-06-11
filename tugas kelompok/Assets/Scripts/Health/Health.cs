@@ -33,9 +33,10 @@ public class Health : MonoBehaviour
         {
             if (!dead)
             {
+                dead = true;
                 anim.SetTrigger("die");
                 GetComponent<PlayerMovement>().enabled = false;
-                dead = true;
+                StartCoroutine(DisableAfterDeath());
             }
         }
     }
@@ -51,5 +52,11 @@ public class Health : MonoBehaviour
             yield return new WaitForSeconds(iFramesDuration / (numberOfFlashes * 2));
         }
         Physics2D.IgnoreLayerCollision(10, 11, false);
+    }
+
+    private IEnumerator DisableAfterDeath()
+    {
+        yield return new WaitForSeconds(2f); // Wait for death animation to finish
+        gameObject.SetActive(false); // Disable the player object
     }
 }

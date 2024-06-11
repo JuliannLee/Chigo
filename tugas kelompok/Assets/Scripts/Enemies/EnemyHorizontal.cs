@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Traps_Horizontal : MonoBehaviour
+public class EnemyHorizontal : MonoBehaviour
 {
     [SerializeField] private float movementDistance;
     [SerializeField] private float speed;
