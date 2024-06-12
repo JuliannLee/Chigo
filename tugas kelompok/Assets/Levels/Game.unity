@@ -2729,6 +2729,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 389687508}
+  - component: {fileID: 389687509}
   m_Layer: 0
   m_Name: Level 3
   m_TagString: Untagged
@@ -2757,6 +2758,19 @@ Transform:
   - {fileID: 2006592704}
   m_Father: {fileID: 277675330}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &389687509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389687507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9efa5fc33fd692d4ebb1443ad4272025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: []
 --- !u!1 &393811471
 GameObject:
   m_ObjectHideFlags: 0
@@ -7736,6 +7750,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1206426328}
+  - component: {fileID: 1206426329}
   m_Layer: 0
   m_Name: Level 1
   m_TagString: Untagged
@@ -7765,6 +7780,19 @@ Transform:
   - {fileID: 1344209972}
   m_Father: {fileID: 277675330}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1206426329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206426327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9efa5fc33fd692d4ebb1443ad4272025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: []
 --- !u!1 &1207184117
 GameObject:
   m_ObjectHideFlags: 0
@@ -10484,6 +10512,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1684155941}
+  - component: {fileID: 1684155942}
   m_Layer: 0
   m_Name: Level 2
   m_TagString: Untagged
@@ -10512,6 +10541,19 @@ Transform:
   - {fileID: 1115794311}
   m_Father: {fileID: 277675330}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1684155942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684155940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9efa5fc33fd692d4ebb1443ad4272025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: []
 --- !u!1 &1701024145
 GameObject:
   m_ObjectHideFlags: 0
@@ -11226,6 +11268,7 @@ MonoBehaviour:
   startingHealth: 3
   iFramesDuration: 2
   numberOfFlashes: 3
+  components: []
 --- !u!1 &1805390953
 GameObject:
   m_ObjectHideFlags: 0
