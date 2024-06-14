@@ -10,13 +10,17 @@ public class Health : MonoBehaviour
     private bool dead;
 
     [Header("iFrames")]
-    [SerializeField] private float iFramesDuration;  // Added missing semicolon
+    [SerializeField] private float iFramesDuration;
     [SerializeField] private int numberOfFlashes;
     private SpriteRenderer spriteRend;
 
     [Header("Components")]
     [SerializeField] private Behaviour[] components;
-    private bool invulnarable;
+    private bool invulnerable;
+
+    [Header("Sounds")]
+    [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioClip hurtSound;
 
     private void Awake()
     {
@@ -27,29 +31,37 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float _damage)
     {
-        if (invulnarable) return;
+        if (invulnerable) return;
+
         currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
+
         if (currentHealth > 0)
         {
+            // Hurt logic
             anim.SetTrigger("hurt");
-            StartCoroutine(Invunerability());
+            StartCoroutine(Invulnerability());
+            SoundManager.instance.PlaySound(hurtSound);
         }
         else
         {
+            // Death logic
             if (!dead)
             {
-                dead = true;
-                anim.SetTrigger("die");
                 GetComponent<PlayerMovement>().enabled = false;
-                StartCoroutine(DisableAfterDeath());
+                anim.SetBool("grounded", true);
+                anim.SetTrigger("die");
+
+                dead = true;
+                SoundManager.instance.PlaySound(deathSound);
             }
         }
     }
 
-    private IEnumerator Invunerability()
+    private IEnumerator Invulnerability()
     {
-        invulnarable = true;
+        invulnerable = true;
         Physics2D.IgnoreLayerCollision(10, 11, true);
+
         for (int i = 0; i < numberOfFlashes; i++)
         {
             spriteRend.color = new Color(1, 0, 0, 0.5f);
@@ -57,13 +69,37 @@ public class Health : MonoBehaviour
             spriteRend.color = Color.white;
             yield return new WaitForSeconds(iFramesDuration / (numberOfFlashes * 2));
         }
+
         Physics2D.IgnoreLayerCollision(10, 11, false);
-        invulnarable = false;
+        invulnerable = false;
     }
 
-    private IEnumerator DisableAfterDeath()
+    public void Respawn()
     {
-        yield return new WaitForSeconds(1.2f); // Wait for death animation to finish
-        gameObject.SetActive(false); // Disable the player object
+        dead = false;
+        currentHealth = startingHealth;
+
+        anim.ResetTrigger("die");
+        anim.Play("Idle");
+
+        StartCoroutine(Invulnerability());
+
+        // Re-enable all components
+        foreach (Behaviour component in components)
+        {
+            component.enabled = true;
+        }
+
+        GetComponent<PlayerMovement>().enabled = true;
+    }
+
+    public void AddHealth(float _value)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth);
+    }
+
+    private void Deactivate()
+    {
+        gameObject.SetActive(false);
     }
 }
