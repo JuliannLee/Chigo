@@ -7,6 +7,9 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private bool grounded;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip jumpSound;
+
     private void Awake()
     {
         //Grabs references for rigidbody and animator from game object.
@@ -35,6 +38,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        if (SoundManager.instance != null)
+        {
+            SoundManager.instance.PlaySound(jumpSound);
+        }
+        else
+        {
+            Debug.LogError("SoundManager instance is null. Ensure there is a SoundManager in the scene.");
+        }
+
         body.velocity = new Vector2(body.velocity.x, speed);
         anim.SetTrigger("jump");
         grounded = false;

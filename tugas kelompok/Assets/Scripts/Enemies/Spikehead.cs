@@ -12,6 +12,9 @@ public class Spikehead : EnemyDamage
     private float checkTimer;
     private bool attacking;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip impactSound;
+
     private void OnEnable()
     {
         Stop();
@@ -33,7 +36,7 @@ public class Spikehead : EnemyDamage
     {
         CalculateDirections();
 
-        for (int i = 0; i < directions.Length; i++)  // Ubah 'length' menjadi 'Length'
+        for (int i = 0; i < directions.Length; i++)
         {
             Debug.DrawRay(transform.position, directions[i], Color.red);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, directions[i], range, playerLayer);
@@ -61,9 +64,10 @@ public class Spikehead : EnemyDamage
         attacking = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected new void OnTriggerEnter2D(Collider2D collision)
     {
-        base.OnTriggerEnter2D(collision);
+        SoundManager.instance.PlaySound(impactSound);
+        base.OnTriggerEnter2D(collision); // Call the base class method if needed
         Stop();
     }
 }

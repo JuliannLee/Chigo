@@ -10,6 +10,9 @@ public class Arrowtrap : MonoBehaviour
     private float cooldownTimer;                      // Penghitung waktu jeda serangan
     private Queue<GameObject> arrowQueue;             // Antrian panah yang tersedia
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip arrowSound;
+
     private void Awake()
     {
         // Inisialisasi antrian panah
@@ -20,6 +23,7 @@ public class Arrowtrap : MonoBehaviour
     private void Attack()
     {
         cooldownTimer = 0; // Reset penghitungan jeda serangan
+        SoundManager.instance.PlaySound(arrowSound);
 
         // Cek apakah ada panah yang tersedia di antrian
         if (arrowQueue.Count > 0)
