@@ -30,10 +30,17 @@ public class PlayerRespawn : MonoBehaviour
         transform.position = currentCheckpoint.position;
 
         // Move the camera to the checkpoint's room
+        Transform checkpointRoom = currentCheckpoint.parent;
+        if (checkpointRoom == null)
+        {
+            Debug.LogError("Checkpoint room transform is null. Check if the checkpoint has a parent transform.");
+            return;
+        }
+
         CameraController cameraController = Camera.main.GetComponent<CameraController>();
         if (cameraController != null)
         {
-            cameraController.MoveToNewRoom(currentCheckpoint.parent);
+            cameraController.MoveToNewRoom(checkpointRoom);
         }
         else
         {
@@ -48,6 +55,7 @@ public class PlayerRespawn : MonoBehaviour
             currentCheckpoint = collision.transform;
             SoundManager.instance.PlaySound(checkpoint);
 
+            // Disable the checkpoint's collider
             Collider2D checkpointCollider = collision.GetComponent<Collider2D>();
             if (checkpointCollider != null)
             {
@@ -58,6 +66,7 @@ public class PlayerRespawn : MonoBehaviour
                 Debug.LogWarning("Collider2D component not found on the checkpoint.");
             }
 
+            // Trigger the checkpoint's animation
             Animator checkpointAnimator = collision.GetComponent<Animator>();
             if (checkpointAnimator != null)
             {

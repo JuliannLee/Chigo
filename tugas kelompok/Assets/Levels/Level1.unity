@@ -2048,7 +2048,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-<<<<<<< HEAD
 --- !u!1001 &305208592
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2106,8 +2105,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5689ea5f60e11414f9fcf4cf778621c5, type: 3}
-=======
->>>>>>> d7cb2dc29d083070909fa8411fc448b2c77481d3
 --- !u!1 &308376323
 GameObject:
   m_ObjectHideFlags: 0
@@ -11447,10 +11444,7 @@ GameObject:
   - component: {fileID: 1786869882}
   - component: {fileID: 1786869887}
   - component: {fileID: 1786869888}
-<<<<<<< HEAD
   - component: {fileID: 1786869889}
-=======
->>>>>>> d7cb2dc29d083070909fa8411fc448b2c77481d3
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -11471,7 +11465,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-<<<<<<< HEAD
   jumpPower: 20
   coyoteTime: 0.25
   extraJumps: 1
@@ -11483,8 +11476,6 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
-=======
->>>>>>> d7cb2dc29d083070909fa8411fc448b2c77481d3
   jumpSound: {fileID: 8300000, guid: f19c0be88c661f946b548b8c74593bf3, type: 3}
 --- !u!61 &1786869883
 BoxCollider2D:
@@ -11664,7 +11655,6 @@ MonoBehaviour:
   components: []
   deathSound: {fileID: 8300000, guid: e4e9315a978937a47ac90069c3b8019e, type: 3}
   hurtSound: {fileID: 8300000, guid: 7eef4746ab65ed8498a31efab51e1bb1, type: 3}
-<<<<<<< HEAD
 --- !u!114 &1786869889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11678,8 +11668,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkpoint: {fileID: 8300000, guid: b36e27110da360540b8ff568b0bc9035, type: 3}
-=======
->>>>>>> d7cb2dc29d083070909fa8411fc448b2c77481d3
 --- !u!1 &1805390953
 GameObject:
   m_ObjectHideFlags: 0
@@ -12184,7 +12172,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-<<<<<<< HEAD
 --- !u!1001 &1864302564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12254,8 +12241,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 568758a89da578d4ca6391b9025e9856, type: 3}
-=======
->>>>>>> d7cb2dc29d083070909fa8411fc448b2c77481d3
 --- !u!1 &1864989273
 GameObject:
   m_ObjectHideFlags: 0
@@ -14144,8 +14129,5 @@ SceneRoots:
   - {fileID: 240865696}
   - {fileID: 1027099881}
   - {fileID: 359802650}
-<<<<<<< HEAD
   - {fileID: 1864302564}
   - {fileID: 305208592}
-=======
->>>>>>> d7cb2dc29d083070909fa8411fc448b2c77481d3
