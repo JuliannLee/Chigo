@@ -31,6 +31,9 @@ public class PlayerMovement : MonoBehaviour
     private float wallJumpCooldown;
     private float horizontalInput;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip jumpSound;
+
     private void Awake()
     {
         //Grab references for rigidbody and animator from object
@@ -83,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+<<<<<<< HEAD
         if (coyoteCounter <= 0 && !onWall() && jumpCounter <= 0) return;
         //If coyote counter is 0 or less and not on the wall and don't have any extra jumps don't do anything
 
@@ -112,6 +116,20 @@ public class PlayerMovement : MonoBehaviour
             //Reset coyote counter to 0 to avoid double jumps
             coyoteCounter = 0;
         }
+=======
+        if (SoundManager.instance != null)
+        {
+            SoundManager.instance.PlaySound(jumpSound);
+        }
+        else
+        {
+            Debug.LogError("SoundManager instance is null. Ensure there is a SoundManager in the scene.");
+        }
+
+        body.velocity = new Vector2(body.velocity.x, speed);
+        anim.SetTrigger("jump");
+        grounded = false;
+>>>>>>> d7cb2dc29d083070909fa8411fc448b2c77481d3
     }
 
     private void WallJump()
