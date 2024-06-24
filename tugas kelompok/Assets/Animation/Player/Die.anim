@@ -167,7 +167,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1
-    functionName: Respawn
+    functionName: RespawnCheck
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

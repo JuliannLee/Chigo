@@ -5,47 +5,27 @@ public class PlayerRespawn : MonoBehaviour
     [SerializeField] private AudioClip checkpoint;
     private Transform currentCheckpoint;
     private Health playerHealth;
+    private UIManager uiManager;
 
     private void Awake()
     {
         playerHealth = GetComponent<Health>();
-        if (playerHealth == null)
-        {
-            Debug.LogError("Health component not found on the player.");
-        }
+        uiManager = FindObjectOfType<UIManager>();
     }
 
-    public void Respawn()
+    public void RespawnCheck()
     {
         if (currentCheckpoint == null)
         {
-            Debug.LogWarning("Current checkpoint is not set. Cannot respawn.");
+            uiManager.GameOver();
             return;
         }
 
-        // Restore player health and reset animation
-        playerHealth.Respawn();
+        playerHealth.Respawn(); //Restore player health and reset animation
+        transform.position = currentCheckpoint.position; //Move player to checkpoint location
 
-        // Move player to checkpoint location
-        transform.position = currentCheckpoint.position;
-
-        // Move the camera to the checkpoint's room
-        Transform checkpointRoom = currentCheckpoint.parent;
-        if (checkpointRoom == null)
-        {
-            Debug.LogError("Checkpoint room transform is null. Check if the checkpoint has a parent transform.");
-            return;
-        }
-
-        CameraController cameraController = Camera.main.GetComponent<CameraController>();
-        if (cameraController != null)
-        {
-            cameraController.MoveToNewRoom(checkpointRoom);
-        }
-        else
-        {
-            Debug.LogError("CameraController component not found on the main camera.");
-        }
+        //Move the camera to the checkpoint's room
+        Camera.main.GetComponent<CameraController>().MoveToNewRoom(currentCheckpoint.parent);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -54,28 +34,8 @@ public class PlayerRespawn : MonoBehaviour
         {
             currentCheckpoint = collision.transform;
             SoundManager.instance.PlaySound(checkpoint);
-
-            // Disable the checkpoint's collider
-            Collider2D checkpointCollider = collision.GetComponent<Collider2D>();
-            if (checkpointCollider != null)
-            {
-                checkpointCollider.enabled = false;
-            }
-            else
-            {
-                Debug.LogWarning("Collider2D component not found on the checkpoint.");
-            }
-
-            // Trigger the checkpoint's animation
-            Animator checkpointAnimator = collision.GetComponent<Animator>();
-            if (checkpointAnimator != null)
-            {
-                checkpointAnimator.SetTrigger("appear");
-            }
-            else
-            {
-                Debug.LogWarning("Animator component not found on the checkpoint.");
-            }
+            collision.GetComponent<Collider2D>().enabled = false;
+            collision.GetComponent<Animator>().SetTrigger("activate");
         }
     }
 }
