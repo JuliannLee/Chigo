@@ -11234,6 +11234,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  jumpPower: 20
+  coyoteTime: 0.25
+  extraJumps: 1
+  wallJumpX: 2000
+  wallJumpY: 750
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
   jumpSound: {fileID: 8300000, guid: f19c0be88c661f946b548b8c74593bf3, type: 3}
 --- !u!61 &1786869883
 BoxCollider2D:
