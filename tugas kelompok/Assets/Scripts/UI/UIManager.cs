@@ -13,6 +13,9 @@ public class UIManager : MonoBehaviour
     [Header("Main Menu")]
     [SerializeField] private GameObject mainMenuScreen;
 
+    [Header("Game Finish")]
+    [SerializeField] private GameObject gameFinishScreen;
+
     private bool isMainMenuActive = false;
 
     private void Awake()
@@ -20,6 +23,7 @@ public class UIManager : MonoBehaviour
         gameOverScreen.SetActive(false);
         pauseScreen.SetActive(false);
         mainMenuScreen.SetActive(false);
+        gameFinishScreen.SetActive(false);
     }
 
     private void Update()
@@ -32,7 +36,6 @@ public class UIManager : MonoBehaviour
     }
 
     #region Game Over
-    // Activate game over screen
     public void GameOver()
     {
         if (!isMainMenuActive)
@@ -42,40 +45,35 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // Restart level
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    // Main Menu
     public void MainMenu()
     {
-        HidePauseScreen(); // Ensure the pause screen is hidden
-        HideGameOverScreen(); // Ensure the game over screen is hidden
-        ShowMainMenuScreen(); // Show the main menu screen
-        isMainMenuActive = true; // Set the main menu active flag to true
+        HidePauseScreen();
+        HideGameOverScreen();
+        ShowMainMenuScreen();
+        isMainMenuActive = true;
     }
 
-    // Method to load the main menu scene
     public void LoadMainMenuScene()
     {
         SceneManager.LoadScene(0);
     }
 
-    // Method to hide the game over screen
     private void HideGameOverScreen()
     {
         gameOverScreen.SetActive(false);
     }
 
-    // Quit game/exit play mode if in Editor
     public void Quit()
     {
-        Application.Quit(); // Quits the game (only works in build)
+        Application.Quit();
 
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; // Exits play mode (will only be executed in the editor)
+        UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
     #endregion
@@ -85,26 +83,34 @@ public class UIManager : MonoBehaviour
     {
         if (!isMainMenuActive)
         {
-            // If status == true pause | if status == false unpause
             pauseScreen.SetActive(status);
-
-            // When pause status is true change timescale to 0 (time stops)
-            // when it's false change it back to 1 (time goes by normally)
             Time.timeScale = status ? 0 : 1;
         }
     }
 
-    // Method to hide the pause screen
     private void HidePauseScreen()
     {
         pauseScreen.SetActive(false);
-        Time.timeScale = 1; // Ensure timescale is reset
+        Time.timeScale = 1;
     }
 
-    // Method to show Main Menu screen
     public void ShowMainMenuScreen()
     {
         mainMenuScreen.SetActive(true);
+    }
+    #endregion
+
+    #region Game Finish
+    public void GameFinish()
+    {
+        gameFinishScreen.SetActive(true);
+        Time.timeScale = 0; // Pause the game when it finishes
+    }
+
+    public void HideGameFinishScreen()
+    {
+        gameFinishScreen.SetActive(false);
+        Time.timeScale = 1; // Ensure timescale is reset
     }
     #endregion
 
