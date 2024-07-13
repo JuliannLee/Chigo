@@ -16,14 +16,15 @@ public class UIManager : MonoBehaviour
     [Header("Game Finish")]
     [SerializeField] private GameObject gameFinishScreen;
 
+    [Header("Settings")]
+    [SerializeField] private GameObject settingsScreen;
+
     private bool isMainMenuActive = false;
+    private GameObject currentActiveScreen = null;
 
     private void Awake()
     {
-        gameOverScreen.SetActive(false);
-        pauseScreen.SetActive(false);
-        mainMenuScreen.SetActive(false);
-        gameFinishScreen.SetActive(false);
+        HideAllScreens();
     }
 
     private void Update()
@@ -40,7 +41,7 @@ public class UIManager : MonoBehaviour
     {
         if (!isMainMenuActive)
         {
-            gameOverScreen.SetActive(true);
+            ShowScreen(gameOverScreen);
             SoundManager.instance.PlaySound(gameOverSound);
         }
     }
@@ -52,8 +53,7 @@ public class UIManager : MonoBehaviour
 
     public void MainMenu()
     {
-        HidePauseScreen();
-        HideGameOverScreen();
+        HideAllScreens();
         ShowMainMenuScreen();
         isMainMenuActive = true;
     }
@@ -83,34 +83,36 @@ public class UIManager : MonoBehaviour
     {
         if (!isMainMenuActive)
         {
-            pauseScreen.SetActive(status);
+            ShowScreen(pauseScreen, status);
             Time.timeScale = status ? 0 : 1;
         }
-    }
-
-    private void HidePauseScreen()
-    {
-        pauseScreen.SetActive(false);
-        Time.timeScale = 1;
-    }
-
-    public void ShowMainMenuScreen()
-    {
-        mainMenuScreen.SetActive(true);
     }
     #endregion
 
     #region Game Finish
     public void GameFinish()
     {
-        gameFinishScreen.SetActive(true);
+        ShowScreen(gameFinishScreen);
         Time.timeScale = 0; // Pause the game when it finishes
     }
+    #endregion
 
-    public void HideGameFinishScreen()
+    #region Settings
+    public void OpenSettings()
     {
-        gameFinishScreen.SetActive(false);
-        Time.timeScale = 1; // Ensure timescale is reset
+        ShowScreen(settingsScreen);
+    }
+
+    public void CloseSettings()
+    {
+        HideScreen(settingsScreen);
+    }
+
+    public void BackToMainMenu()
+    {
+        HideAllScreens();
+        ShowMainMenuScreen();
+        isMainMenuActive = true;
     }
     #endregion
 
@@ -123,6 +125,47 @@ public class UIManager : MonoBehaviour
     public void MusicVolume()
     {
         SoundManager.instance.ChangeMusicVolume(0.2f);
+    }
+    #endregion
+
+    #region Helper Methods
+    private void HideAllScreens()
+    {
+        gameOverScreen.SetActive(false);
+        pauseScreen.SetActive(false);
+        mainMenuScreen.SetActive(false);
+        gameFinishScreen.SetActive(false);
+        settingsScreen.SetActive(false);
+        Time.timeScale = 1; // Ensure timescale is reset
+    }
+
+    private void ShowScreen(GameObject screen, bool status = true)
+    {
+        if (currentActiveScreen != null)
+        {
+            currentActiveScreen.SetActive(false);
+        }
+        screen.SetActive(status);
+        currentActiveScreen = status ? screen : null;
+    }
+
+    private void HideScreen(GameObject screen)
+    {
+        if (currentActiveScreen == screen)
+        {
+            screen.SetActive(false);
+            currentActiveScreen = null;
+        }
+    }
+
+    public void ShowMainMenuScreen()
+    {
+        mainMenuScreen.SetActive(true);
+    }
+
+    public void HideMainMenuScreen()
+    {
+        mainMenuScreen.SetActive(false);
     }
     #endregion
 }
